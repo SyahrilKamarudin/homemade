@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaBand from '../CtaBand.astro';
+import type { Lang } from '../../config';
+import { t } from '../../i18n/strings';
+import { SEO, localizedPath } from '../../i18n/routes';
+import type { LoadedPost } from '../../lib/posts';
+
+interface Props { lang: Lang; posts: LoadedPost[]; }
+const { lang, posts } = Astro.props;
+const d = t(lang);
+const seo = SEO['blog'][lang];
+const heading = lang === 'ms' ? 'Panduan & Tip Kabinet Dapur' : 'Kitchen Cabinet Guides & Tips';
+const lead = lang === 'ms'
+  ? 'Panduan ringkas tentang material, harga dan rekaan kabinet dapur — untuk membantu anda merancang dengan yakin.'
+  : 'Straightforward guides on cabinet materials, pricing and design — to help you plan with confidence.';
+---
+<BaseLayout lang={lang} slug="blog" title={seo.title} description={seo.description} ogImage="assets/img/kitchen-wood.jpg">
+  <main>
+    <section class="banner">
+      <div class="banner__bg">
+        <img src="/assets/img/kitchen-wood.jpg" alt="" width="1600" height="500" />
+        <div class="banner__overlay"></div>
+      </div>
+      <div class="container">
+        <div class="banner__inner">
+          <h1>{heading}</h1>
+          <div class="breadcrumb"><a href={localizedPath(lang, '')}>{d.navHome}</a> &nbsp;/&nbsp; {d.navBlog}</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <p class="lead max720 center" style="margin-bottom:40px">{lead}</p>
+        <div class="grid grid--cards-lg">
+          {posts.map((p) => (
+            <a class="card" href={localizedPath(lang, `blog/${p.slug}`)} style="text-decoration:none;color:inherit">
+              <div class="card__media">
+                <img src={p.coverImageUrl} alt={p.coverAlt[lang]} loading="lazy" width="400" height="300" />
+              </div>
+              <div class="card__body">
+                <p class="article-meta">{p.dateLabel[lang]}</p>
+                <h3>{p.h1[lang]}</h3>
+                <p class="card__desc">{p.excerpt[lang]}</p>
+                <span class="link-arrow">{lang === 'ms' ? 'Baca panduan →' : 'Read guide →'}</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <CtaBand lang={lang} title={d.ctaHomeTitle} text={d.ctaHomeP} btn={d.ctaContactBtn} />
+  </main>
+</BaseLayout>

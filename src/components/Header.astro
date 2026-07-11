@@ -1,0 +1,52 @@
+---
+import type { Lang } from '../config';
+import { t } from '../i18n/strings';
+import { NAV_SLUGS, localizedPath, altPath } from '../i18n/routes';
+
+interface Props { lang: Lang; slug: string; }
+const { lang, slug } = Astro.props;
+const d = t(lang);
+const alt = altPath(lang, slug);
+---
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href={localizedPath(lang, '')} aria-label="HOMADE SELANGOR — Home">
+      <img src="/assets/img/logo-homade.jpg" alt="HOMADE SELANGOR logo" width="46" height="46" />
+      <span>HOMADE SELANGOR<small>SDN BHD</small></span>
+    </a>
+
+    <div class="header-right">
+      <nav aria-label="Primary">
+        <ul class="nav-list" id="nav-list">
+          {NAV_SLUGS.map((item) => {
+            const href = localizedPath(lang, item.slug);
+            const current = slug === item.slug;
+            return (
+              <li>
+                <a href={href} aria-current={current ? 'page' : undefined}>{d[item.key]}</a>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+
+      <div class="lang-switch" role="group" aria-label="Language">
+        <a href={lang === 'en' ? localizedPath('en', slug) : alt} aria-current={lang === 'en' ? 'true' : 'false'} hreflang="en">BI</a>
+        <a href={lang === 'ms' ? localizedPath('ms', slug) : alt} aria-current={lang === 'ms' ? 'true' : 'false'} hreflang="ms">BM</a>
+      </div>
+
+      <a class="btn btn--primary header-cta" href={localizedPath(lang, 'contact')}>{d.getQuote}</a>
+
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-list">☰</button>
+    </div>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const list = document.getElementById('nav-list');
+  toggle?.addEventListener('click', () => {
+    const open = list?.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+</script>

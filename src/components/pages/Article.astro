@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaBand from '../CtaBand.astro';
+import type { Lang } from '../../config';
+import { t } from '../../i18n/strings';
+import { localizedPath } from '../../i18n/routes';
+import type { LoadedPost } from '../../lib/posts';
+
+interface Props { lang: Lang; post: LoadedPost; }
+const { lang, post } = Astro.props;
+const d = t(lang);
+
+const faq = post.faq[lang].filter((f) => f.q && f.a);
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+const blogLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.h1[lang],
+  description: post.metaDescription[lang],
+  image: post.coverImageUrl,
+  datePublished: post.date,
+  author: { '@type': 'Organization', name: 'HOMADE SELANGOR SDN BHD' },
+  publisher: { '@type': 'Organization', name: 'HOMADE SELANGOR SDN BHD' },
+  inLanguage: lang === 'ms' ? 'ms-MY' : 'en-MY',
+};
+const faqHeading = lang === 'ms' ? 'Soalan lazim' : 'Frequently asked questions';
+const backLabel = lang === 'ms' ? '← Semua panduan' : '← All guides';
+---
+<BaseLayout
+  lang={lang}
+  slug={`blog/${post.slug}`}
+  title={post.metaTitle[lang]}
+  description={post.metaDescription[lang]}
+  ogImage={post.coverImageUrl}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(blogLd)} />
+    {faq.length > 0 && <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />}
+  </Fragment>
+
+  <main>
+    <section class="banner">
+      <div class="banner__bg">
+        <img src={post.coverImageUrl} alt="" width="1600" height="500" />
+        <div class="banner__overlay"></div>
+      </div>
+      <div class="container">
+        <div class="banner__inner">
+          <h1>{post.h1[lang]}</h1>
+          <div class="breadcrumb"><a href={localizedPath(lang, '')}>{d.navHome}</a> &nbsp;/&nbsp; <a href={localizedPath(lang, 'blog')}>{d.navBlog}</a></div>
+        </div>
+      </div>
+    </section>
+
+    <article class="section">
+      <div class="container">
+        <div class="prose">
+          <p class="article-meta">{post.dateLabel[lang]} · HOMADE SELANGOR</p>
+          <img src={post.coverImageUrl} alt={post.coverAlt[lang]} loading="lazy" width="760" height="500" />
+          <Fragment set:html={post.bodyHtml[lang]} />
+
+          {faq.length > 0 && (
+            <div class="faq">
+              <h2>{faqHeading}</h2>
+              {faq.map((f) => (
+                <details>
+                  <summary>{f.q}</summary>
+                  <p>{f.a}</p>
+                </details>
+              ))}
+            </div>
+          )}
+
+          <p style="margin-top:32px"><a class="link-arrow" href={localizedPath(lang, 'blog')}>{backLabel}</a></p>
+        </div>
+      </div>
+    </article>
+
+    <CtaBand lang={lang} title={d.ctaHomeTitle} text={d.ctaHomeP} btn={d.ctaContactBtn} />
+  </main>
+</BaseLayout>

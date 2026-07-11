@@ -1,0 +1,108 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaBand from '../CtaBand.astro';
+import type { Lang } from '../../config';
+import { t } from '../../i18n/strings';
+import { SEO, localizedPath } from '../../i18n/routes';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const d = t(lang);
+const seo = SEO['about'][lang];
+
+const facts = [
+  { ic: '🏢', title: d.factRegName, desc: d.factRegNameV },
+  { ic: '#️⃣', title: d.factRegNo, desc: d.factRegNoV },
+  { ic: '📅', title: d.factInc, desc: d.factIncV },
+  { ic: '🧱', title: d.factCab, desc: d.factCabV },
+  { ic: '🍳', title: d.factApp, desc: d.factAppV },
+  { ic: '🛋️', title: d.factFur, desc: d.factFurV },
+];
+---
+<BaseLayout lang={lang} slug="about" title={seo.title} description={seo.description} ogImage="assets/img/kitchen-premium.jpg">
+  <main>
+    <!-- Banner -->
+    <section class="banner">
+      <div class="banner__bg">
+        <img src="/assets/img/kitchen-wood.jpg" alt="" width="1600" height="500" />
+        <div class="banner__overlay"></div>
+      </div>
+      <div class="container">
+        <div class="banner__inner">
+          <h1>{d.aboutBanner}</h1>
+          <div class="breadcrumb"><a href={localizedPath(lang, '')}>{d.navHome}</a> &nbsp;/&nbsp; {d.aboutBanner}</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Story -->
+    <section class="section">
+      <div class="container split">
+        <div>
+          <span class="kicker">{d.storyKicker}</span>
+          <h2>{d.storyTitle}</h2>
+          <p>{d.storyP1}</p>
+          <p>{d.storyP2}</p>
+          <p>{d.storyP3}</p>
+        </div>
+        <div><img src="/assets/img/kitchen-premium.jpg" alt="HOMADE kitchen cabinet project — Kajang, Selangor" loading="lazy" width="800" height="600" /></div>
+      </div>
+    </section>
+
+    <!-- Company details -->
+    <section class="section section--tint">
+      <div class="container">
+        <div class="center" style="margin-bottom:40px">
+          <span class="kicker">{d.detailsKicker}</span>
+          <h2>{d.detailsTitle}</h2>
+        </div>
+        <div class="grid grid--cards">
+          {facts.map((f) => (
+            <div class="feature">
+              <div class="feature__ic" aria-hidden="true">{f.ic}</div>
+              <div><h3>{f.title}</h3><p>{f.desc}</p></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Mission & Vision (draft flag) -->
+    <section class="section">
+      <div class="container">
+        <div class="flag" style="margin-bottom:24px">🚩 <strong>{d.flagDraft}</strong> {d.flagMissionVision}</div>
+        <div class="grid grid--split">
+          <div class="info-card">
+            <span class="kicker">{d.missionKicker}</span>
+            <h3 style="font-size:1.4rem">{d.missionTitle}</h3>
+            <p class="muted">{d.missionP}</p>
+          </div>
+          <div class="info-card">
+            <span class="kicker">{d.visionKicker}</span>
+            <h3 style="font-size:1.4rem">{d.visionTitle}</h3>
+            <p class="muted">{d.visionP}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORMOSA brand -->
+    <section class="section section--tint">
+      <div class="container split">
+        <div><img src="/assets/img/formosa-booth.jpg" alt="FORMOSA — cabinet doors & stainless steel kitchen cabinets exhibition booth, HOMADE Selangor" loading="lazy" width="800" height="600" /></div>
+        <div>
+          <span class="kicker">{d.brandKicker}</span>
+          <h2>FORMOSA — {d.brandTitle}</h2>
+          <p>{d.brandP1}</p>
+          <p>{d.brandP2}</p>
+          <div class="flag" style="margin:18px 0 0">🚩 <strong>{d.flagConfirm}</strong> {d.flagFormosa}</div>
+          <div style="margin-top:22px">
+            <a class="btn btn--outline" href={localizedPath(lang, 'products')}>{d.brandBtn}</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <CtaBand lang={lang} title={d.ctaAboutTitle} text={d.ctaAboutP} btn={d.ctaGetInTouch} />
+  </main>
+</BaseLayout>

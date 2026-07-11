@@ -1,0 +1,49 @@
+---
+import type { Lang } from '../config';
+import { t } from '../i18n/strings';
+import { NAP } from '../config';
+import { NAV_SLUGS, localizedPath } from '../i18n/routes';
+
+interface Props { lang: Lang; slug: string; }
+const { lang } = Astro.props;
+const d = t(lang);
+const year = 2026;
+---
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-brand__row">
+          <img src="/assets/img/logo-homade.jpg" alt="HOMADE SELANGOR logo" width="44" height="44" />
+          <b>HOMADE SELANGOR SDN BHD</b>
+        </div>
+        <p>{d.footerDesc}</p>
+        <p class="footer-reg">Reg. No: {NAP.regNo}</p>
+        <a class="footer-fb" href={NAP.facebook} target="_blank" rel="noopener">f&nbsp; {d.fbFollow}</a>
+      </div>
+
+      <div>
+        <h4>{d.footerCompany}</h4>
+        <ul class="footer-links">
+          {NAV_SLUGS.map((item) => (
+            <li><a href={localizedPath(lang, item.slug)}>{d[item.key]}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <h4>{d.footerVisit}</h4>
+        <p style="margin:0">{NAP.street},<br />{NAP.postalCode} {NAP.locality}, {NAP.region}.</p>
+        <p style="margin:12px 0 0">
+          <strong>{d.contactPerson}:</strong> {NAP.contactPerson}<br />
+          <a href={`tel:${NAP.phoneIntl}`}>{NAP.phoneDisplay}</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© {year} HOMADE SELANGOR SDN BHD. {d.footerRights}</span>
+      <span>{d.footerProto}</span>
+    </div>
+  </div>
+</footer>

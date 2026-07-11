@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaBand from '../CtaBand.astro';
+import ProductCard from '../ProductCard.astro';
+import type { Lang } from '../../config';
+import { t } from '../../i18n/strings';
+import { SEO, localizedPath } from '../../i18n/routes';
+import { categories } from '../../data/products';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const d = t(lang);
+const seo = SEO['products'][lang];
+
+const chips = [
+  { anchor: 'cabinet-doors', label: d.catCabinet },
+  { anchor: 'kitchen', label: d.catKitchen },
+  { anchor: 'furniture', label: d.catFurniture },
+  { anchor: 'appliances', label: d.catAppliances },
+];
+---
+<BaseLayout lang={lang} slug="products" title={seo.title} description={seo.description} ogImage="assets/img/kitchen-1.jpg">
+  <main>
+    <!-- Banner -->
+    <section class="banner">
+      <div class="banner__bg">
+        <img src="/assets/img/kitchen-1.jpg" alt="" width="1600" height="500" />
+        <div class="banner__overlay"></div>
+      </div>
+      <div class="container">
+        <div class="banner__inner">
+          <h1>{d.prodBanner}</h1>
+          <div class="breadcrumb"><a href={localizedPath(lang, '')}>{d.navHome}</a> &nbsp;/&nbsp; {d.prodBanner}</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Intro + jump chips -->
+    <section class="section--sm">
+      <div class="container center">
+        <span class="kicker">{d.catalogKicker}</span>
+        <h2>{d.prodTitle}</h2>
+        <p class="lead max720">{d.catalogLead}</p>
+        <nav class="chips" aria-label="Jump to category">
+          {chips.map((c) => <a class="chip" href={`#${c.anchor}`}>{c.label}</a>)}
+        </nav>
+        <div class="flag" style="margin:24px auto 0;max-width:760px;text-align:left">🚩 <strong>{d.flagDraft}</strong> {d.flagProducts}</div>
+      </div>
+    </section>
+
+    <!-- Category sections -->
+    {categories.map((cat) => (
+      <section id={cat.id} class={cat.tint ? 'section section--tint' : 'section'} style="scroll-margin-top:90px">
+        <div class="container">
+          <div style="margin-bottom:34px;max-width:760px">
+            <span class="tag">{d[cat.tagKey]}</span>
+            <h2 style="margin-bottom:6px">{d[cat.titleKey]}</h2>
+            <p class="lead" style="margin:0">{d[cat.leadKey]}</p>
+          </div>
+          <div class="grid grid--cards-lg">
+            {cat.cards.map((card) => <ProductCard lang={lang} card={card} />)}
+          </div>
+        </div>
+      </section>
+    ))}
+
+    <CtaBand lang={lang} title={d.ctaProdTitle} text={d.ctaProdP} btn={d.ctaEnquireBtn} />
+  </main>
+</BaseLayout>

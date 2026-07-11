@@ -1,0 +1,22 @@
+---
+import type { Lang } from '../config';
+import { waLink } from '../config';
+import { t } from '../i18n/strings';
+import { localizedPath } from '../i18n/routes';
+
+interface Props { lang: Lang; title: string; text: string; btn: string; }
+const { lang, title, text, btn } = Astro.props;
+const d = t(lang);
+---
+<section class="section">
+  <div class="container">
+    <div class="cta-band">
+      <h2>{title}</h2>
+      <p>{text}</p>
+      <div class="cta-band__actions">
+        <a class="btn btn--wa" href={waLink(lang)} target="_blank" rel="noopener">{d.waChat}</a>
+        <a class="btn btn--ghost" href={localizedPath(lang, 'contact')}>{btn}</a>
+      </div>
+    </div>
+  </div>
+</section>

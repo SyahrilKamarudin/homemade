@@ -1,0 +1,126 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaBand from '../CtaBand.astro';
+import type { Lang } from '../../config';
+import { t } from '../../i18n/strings';
+import { SEO, localizedPath } from '../../i18n/routes';
+import { homeCategories } from '../../data/products';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const d = t(lang);
+const seo = SEO[''][lang];
+
+const stats = [
+  { num: '2012', lbl: d.statEst },
+  { num: '14+', lbl: d.statYears },
+  { num: '4', lbl: d.statLines },
+  { num: '100%', lbl: d.statLocal },
+];
+const features = [
+  { ic: '🏭', title: d.feat1T, desc: d.feat1D },
+  { ic: '🧰', title: d.feat2T, desc: d.feat2D },
+  { ic: '📍', title: d.feat3T, desc: d.feat3D },
+];
+const ticks = [d.whoTick1, d.whoTick2, d.whoTick3];
+---
+<BaseLayout lang={lang} slug="" title={seo.title} description={seo.description} ogImage="assets/img/hero.jpg">
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero__bg">
+        <img src="/assets/img/hero.jpg" alt="Modern kitchen cabinetry by HOMADE, Kajang Selangor" width="1600" height="900" fetchpriority="high" />
+        <div class="hero__overlay"></div>
+      </div>
+      <div class="container">
+        <div class="hero__inner">
+          <span class="hero__badge">{d.heroBadge}</span>
+          <h1>{d.heroTitle}</h1>
+          <p class="hero__sub">{d.heroSub}</p>
+          <div class="hero__actions">
+            <a class="btn btn--primary" href={localizedPath(lang, 'products')}>{d.heroBtnProducts}</a>
+            <a class="btn btn--ghost" href={localizedPath(lang, 'about')}>{d.heroBtnAbout}</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="section--sm">
+      <div class="container">
+        <div class="stats">
+          {stats.map((s) => (
+            <div><div class="stats__num">{s.num}</div><div class="stats__lbl">{s.lbl}</div></div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Who we are -->
+    <section class="section section--tint">
+      <div class="container split">
+        <div>
+          <span class="kicker">{d.whoKicker}</span>
+          <h2>{d.whoTitle}</h2>
+          <p class="lead">{d.whoLead}</p>
+          <p>{d.whoPara}</p>
+          <ul class="ticks">
+            {ticks.map((tk) => <li>{tk}</li>)}
+          </ul>
+          <div style="margin-top:26px">
+            <a class="btn btn--outline" href={localizedPath(lang, 'about')}>{d.whoBtn}</a>
+          </div>
+        </div>
+        <div>
+          <img src="/assets/img/kitchen-2.jpg" alt="Modern kitchen cabinets by HOMADE — Kajang" loading="lazy" width="800" height="600" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Product categories -->
+    <section class="section">
+      <div class="container">
+        <div class="center" style="margin-bottom:40px">
+          <span class="kicker">{d.prodKicker}</span>
+          <h2>{d.prodTitle}</h2>
+          <p class="lead max720">{d.prodLead}</p>
+        </div>
+        <div class="grid grid--cards-lg">
+          {homeCategories.map((c) => (
+            <a class="card" href={`${localizedPath(lang, 'products')}#${c.anchor}`} style="text-decoration:none;color:inherit">
+              <div class="card__media">
+                <img src={`/assets/img/${c.img}`} alt={`${d[c.titleKey]} — HOMADE Kajang`} loading="lazy" width="400" height="300" />
+              </div>
+              <div class="card__body">
+                <span class="tag">{d[c.tagKey]}</span>
+                <h3>{d[c.titleKey]}</h3>
+                <p class="card__desc">{d[c.descKey]}</p>
+                <span class="link-arrow">{d.viewRange}</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Homade -->
+    <section class="section section--tint">
+      <div class="container">
+        <div class="center" style="margin-bottom:40px">
+          <span class="kicker">{d.whyKicker}</span>
+          <h2>{d.whyTitle}</h2>
+        </div>
+        <div class="grid grid--cards">
+          {features.map((f) => (
+            <div class="feature">
+              <div class="feature__ic" aria-hidden="true">{f.ic}</div>
+              <div><h3>{f.title}</h3><p>{f.desc}</p></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <CtaBand lang={lang} title={d.ctaHomeTitle} text={d.ctaHomeP} btn={d.ctaContactBtn} />
+  </main>
+</BaseLayout>

@@ -1,0 +1,111 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import type { Lang } from '../../config';
+import { t } from '../../i18n/strings';
+import { NAP, waLink, MAP_EMBED } from '../../config';
+import { SEO, localizedPath } from '../../i18n/routes';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const d = t(lang);
+const seo = SEO['contact'][lang];
+const successUrl = localizedPath(lang, 'contact') + '?success=true';
+---
+<BaseLayout lang={lang} slug="contact" title={seo.title} description={seo.description}>
+  <main>
+    <!-- Banner -->
+    <section class="banner">
+      <div class="banner__bg">
+        <img src="/assets/img/kitchen-premium.jpg" alt="" width="1600" height="500" />
+        <div class="banner__overlay"></div>
+      </div>
+      <div class="container">
+        <div class="banner__inner">
+          <h1>{d.contactBanner}</h1>
+          <div class="breadcrumb"><a href={localizedPath(lang, '')}>{d.navHome}</a> &nbsp;/&nbsp; {d.contactBanner}</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:48px;align-items:start">
+        <!-- Details -->
+        <div>
+          <span class="kicker">{d.contactKicker}</span>
+          <h2>{d.contactTitle}</h2>
+          <p class="lead" style="margin-bottom:24px">{d.contactLead}</p>
+
+          <div class="contact-row">
+            <div class="contact-row__ic" aria-hidden="true">📍</div>
+            <div><h4>{d.contactVisit}</h4><p>{NAP.street},<br />{NAP.postalCode} {NAP.locality}, {NAP.region}, Malaysia.</p></div>
+          </div>
+          <div class="contact-row">
+            <div class="contact-row__ic" aria-hidden="true">📞</div>
+            <div>
+              <h4>{d.contactPhone}</h4>
+              <p><strong>{NAP.contactPerson}</strong> · <a href={`tel:${NAP.phoneIntl}`}>{NAP.phoneDisplay}</a></p>
+            </div>
+          </div>
+          <div class="contact-row">
+            <div class="contact-row__ic" aria-hidden="true">💬</div>
+            <div>
+              <h4>WhatsApp</h4>
+              <p><a href={waLink(lang)} target="_blank" rel="noopener">{d.waChat} →</a></p>
+            </div>
+          </div>
+          <div class="contact-row">
+            <div class="contact-row__ic" aria-hidden="true">✉️</div>
+            <div><h4>{d.contactEmail}</h4><p><span class="pill-warn">{d.toConfirm}</span> <!-- 🚩 no email provided by client yet --></p></div>
+          </div>
+          <div class="contact-row">
+            <div class="contact-row__ic" aria-hidden="true">🧭</div>
+            <div>
+              <h4>{d.getDirections}</h4>
+              <p><a href={NAP.googleMaps} target="_blank" rel="noopener">{d.viaGoogleMaps}</a> · <a href={NAP.waze} target="_blank" rel="noopener">{d.viaWaze}</a></p>
+            </div>
+          </div>
+          <div class="contact-row">
+            <div class="contact-row__ic" aria-hidden="true">📘</div>
+            <div><h4>Facebook</h4><p><a href={NAP.facebook} target="_blank" rel="noopener">{d.contactFbMsg}</a></p></div>
+          </div>
+
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <a class="btn btn--wa" href={waLink(lang)} target="_blank" rel="noopener" style="margin-top:20px">{d.waChat}</a>
+            <a class="fb-btn" href={NAP.facebook} target="_blank" rel="noopener">f&nbsp; {d.fbFollow}</a>
+          </div>
+        </div>
+
+        <!-- Form + map -->
+        <div>
+          <div class="form-card">
+            <h3>{d.formTitle}</h3>
+            <p class="muted" style="font-size:.92rem;margin-bottom:20px">{d.formSub}</p>
+
+            <div id="form-thanks" class="flag" style="display:none;background:#eef6df;border-color:#c6dd93;border-left-color:#8fb01f;color:#3f5310;margin-bottom:16px">✅ {d.formThanks}</div>
+
+            <!-- Netlify Forms: static form detected at build; honeypot = bot-field -->
+            <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action={successUrl}>
+              <input type="hidden" name="form-name" value="contact" />
+              <p style="display:none"><label>Don’t fill this out: <input name="bot-field" /></label></p>
+              <input class="field" type="text" name="name" placeholder={d.phName} required />
+              <input class="field" type="email" name="email" placeholder={d.phEmail} required />
+              <input class="field" type="text" name="subject" placeholder={d.phSubject} />
+              <textarea class="field" name="message" rows="5" placeholder={d.phMsg} required></textarea>
+              <button class="btn btn--primary btn--block" type="submit">{d.formBtn}</button>
+            </form>
+          </div>
+
+          <iframe class="map" title="HOMADE SELANGOR — workshop location, Kajang, Selangor" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src={MAP_EMBED}></iframe>
+          <p style="font-size:.82rem;color:var(--muted);margin-top:10px">{d.mapCaption}</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script is:inline>
+    if (new URLSearchParams(window.location.search).get('success') === 'true') {
+      var el = document.getElementById('form-thanks');
+      if (el) { el.style.display = 'block'; el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+    }
+  </script>
+</BaseLayout>

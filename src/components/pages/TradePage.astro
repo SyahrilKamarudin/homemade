@@ -1,0 +1,114 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaBand from '../CtaBand.astro';
+import type { Lang } from '../../config';
+import { t } from '../../i18n/strings';
+import { waLink } from '../../config';
+import { SEO, localizedPath } from '../../i18n/routes';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const d = t(lang);
+const seo = SEO['trade'][lang];
+
+const c = {
+  en: {
+    h1: 'Door panels & stainless steel cabinets for the trade',
+    lead: 'HOMADE SELANGOR (FORMOSA line) is a Kajang-based manufacturer supplying cabinet door panels and stainless steel kitchen cabinets to contractors, interior fit-out firms and other cabinet makers across Selangor and Malaysia.',
+    forTitle: 'Who we supply',
+    forLead: 'If you build kitchens or fit out homes and offices, we can supply the components:',
+    for1: 'Cabinet makers & kitchen installers needing door panels in volume',
+    for2: 'Renovation & interior contractors sourcing complete cabinetry',
+    for3: 'Developers & fit-out firms for residential and commercial projects',
+    offerTitle: 'What we supply',
+    o1: 'Cabinet door panels — melamine, laminate/HPL, 4G/5G glass, profiled',
+    o2: 'Stainless steel kitchen cabinet systems (FORMOSA)',
+    o3: 'Carcasses and complete kitchen cabinet units',
+    o4: 'Consistent finishes, colours and textures across repeat orders',
+    edgeTitle: 'Why buy from a manufacturer',
+    e1: 'We make the panels ourselves — direct factory pricing, no middleman',
+    e2: 'Consistent quality and repeatable finishes for project work',
+    e3: 'Local Kajang production — shorter lead times across the Klang Valley',
+    ctaTitle: 'Talk to us about trade supply',
+    ctaText: 'Tell us your volumes, finishes and timeline. WhatsApp us for trade pricing and lead times. Hubungi kami untuk harga pembekal.',
+    ctaBtn: 'Contact us →',
+    formosaNote: 'Shown: our FORMOSA cabinet door & stainless steel range at a trade exhibition.',
+  },
+  ms: {
+    h1: 'Panel pintu & kabinet keluli tahan karat untuk pembekal',
+    lead: 'HOMADE SELANGOR (lini FORMOSA) ialah pengeluar berpangkalan di Kajang yang membekal panel pintu kabinet dan kabinet dapur keluli tahan karat kepada kontraktor, firma pengubahsuaian dan pembuat kabinet lain di seluruh Selangor dan Malaysia.',
+    forTitle: 'Siapa yang kami bekalkan',
+    forLead: 'Jika anda membina dapur atau mengubah suai rumah dan pejabat, kami boleh bekalkan komponennya:',
+    for1: 'Pembuat kabinet & pemasang dapur yang perlukan panel pintu secara pukal',
+    for2: 'Kontraktor pengubahsuaian & dalaman yang mencari kabinet lengkap',
+    for3: 'Pemaju & firma fit-out untuk projek kediaman dan komersial',
+    offerTitle: 'Apa yang kami bekalkan',
+    o1: 'Panel pintu kabinet — melamine, laminate/HPL, kaca 4G/5G, berprofil',
+    o2: 'Sistem kabinet dapur keluli tahan karat (FORMOSA)',
+    o3: 'Carcass dan unit kabinet dapur lengkap',
+    o4: 'Kemasan, warna dan tekstur konsisten untuk pesanan berulang',
+    edgeTitle: 'Kenapa beli dari pengeluar',
+    e1: 'Kami buat panel sendiri — harga kilang terus, tiada orang tengah',
+    e2: 'Kualiti konsisten dan kemasan boleh diulang untuk kerja projek',
+    e3: 'Pengeluaran tempatan Kajang — masa siap lebih singkat di Lembah Klang',
+    ctaTitle: 'Bincang bekalan pembekal dengan kami',
+    ctaText: 'Beritahu kami kuantiti, kemasan dan jadual anda. WhatsApp kami untuk harga pembekal dan masa siap. Hubungi kami untuk harga pembekal.',
+    ctaBtn: 'Hubungi kami →',
+    formosaNote: 'Dipaparkan: rangkaian pintu kabinet & keluli tahan karat FORMOSA kami di pameran dagangan.',
+  },
+}[lang];
+
+const who = [c.for1, c.for2, c.for3];
+const offer = [c.o1, c.o2, c.o3, c.o4];
+const edge = [c.e1, c.e2, c.e3];
+---
+<BaseLayout lang={lang} slug="trade" title={seo.title} description={seo.description} ogImage="assets/img/formosa-booth.jpg">
+  <main>
+    <section class="banner">
+      <div class="banner__bg">
+        <img src="/assets/img/cabinet-door.jpg" alt="" width="1600" height="500" />
+        <div class="banner__overlay"></div>
+      </div>
+      <div class="container">
+        <div class="banner__inner">
+          <h1>{c.h1}</h1>
+          <div class="breadcrumb"><a href={localizedPath(lang, '')}>{d.navHome}</a> &nbsp;/&nbsp; {d.navTrade}</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container split">
+        <div>
+          <span class="kicker">FORMOSA · B2B</span>
+          <h2>{c.forTitle}</h2>
+          <p class="lead">{c.lead}</p>
+          <p>{c.forLead}</p>
+          <ul class="ticks">{who.map((w) => <li>{w}</li>)}</ul>
+        </div>
+        <div>
+          <img src="/assets/img/formosa-booth.jpg" alt="FORMOSA cabinet door panels & stainless steel kitchen cabinets — trade supply, HOMADE Kajang" loading="lazy" width="800" height="600" />
+          <p style="font-size:.82rem;color:var(--muted);margin-top:10px">{c.formosaNote}</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tint">
+      <div class="container">
+        <div class="grid grid--split">
+          <div>
+            <h2>{c.offerTitle}</h2>
+            <ul class="ticks">{offer.map((o) => <li>{o}</li>)}</ul>
+          </div>
+          <div>
+            <h2>{c.edgeTitle}</h2>
+            <ul class="ticks">{edge.map((e) => <li>{e}</li>)}</ul>
+            <div style="margin-top:20px"><a class="btn btn--wa" href={waLink(lang, 'Trade / pembekal panel pintu kabinet')} target="_blank" rel="noopener">{d.waChat}</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <CtaBand lang={lang} title={c.ctaTitle} text={c.ctaText} btn={c.ctaBtn} />
+  </main>
+</BaseLayout>

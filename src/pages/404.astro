@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { localizedPath } from '../i18n/routes';
+---
+<BaseLayout
+  lang="en"
+  slug=""
+  title="Page not found | HOMADE SELANGOR"
+  description="The page you are looking for could not be found. Return to HOMADE SELANGOR — cabinet maker in Kajang, Selangor."
+>
+  <main>
+    <section class="section center" style="padding:120px 0">
+      <div class="container">
+        <span class="kicker">404</span>
+        <h1>Page not found</h1>
+        <p class="lead max720">Sorry, we couldn't find that page. / Maaf, halaman itu tidak dijumpai.</p>
+        <div style="margin-top:24px"><a class="btn btn--primary" href={localizedPath('en', '')}>Back to home</a></div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

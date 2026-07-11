@@ -1,0 +1,124 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaBand from '../CtaBand.astro';
+import type { Lang } from '../../config';
+import { t } from '../../i18n/strings';
+import { NAP, waLink, MAP_EMBED } from '../../config';
+import { SEO, localizedPath } from '../../i18n/routes';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const d = t(lang);
+const seo = SEO['kabinet-dapur-kajang'][lang];
+
+const c = {
+  en: {
+    h1: 'Kabinet Dapur Kajang — kitchen cabinets made & supplied locally',
+    lead: 'Looking for a kitchen cabinet maker in Kajang? HOMADE SELANGOR has manufactured and supplied cabinet door panels and kitchen cabinets from our Kajang workshop since 2012 — serving homeowners and contractors across Kajang and the wider Klang Valley.',
+    introTitle: 'A cabinet maker rooted in Kajang',
+    intro: 'Our workshop sits at Kg Simpang Balak, Kajang — close to Kajang town, Sungai Chua, Kajang Perdana and Sungai Long, and an easy reach for Bangi, Semenyih, Cheras, Serdang and Seri Kembangan. Because we manufacture locally, we keep control of quality and lead times instead of outsourcing.',
+    areasTitle: 'Areas we serve from Kajang',
+    servicesTitle: 'What we do for Kajang homes',
+    servicesLead: 'From a single kitchen to a full home fit-out:',
+    s1: 'Complete kitchen cabinets — top & bottom, islands, tall units',
+    s2: 'Cabinet door panels in melamine, laminate/HPL and glass finishes',
+    s3: 'Stainless steel kitchen cabinets (FORMOSA) for wet, humid kitchens',
+    s4: 'Wardrobes, TV units, display & storage cabinets',
+    whyTitle: 'Why choose a local Kajang manufacturer',
+    w1: 'Local workshop — visit, discuss and see finishes in person',
+    w2: 'We make the door panels ourselves — better price and consistency',
+    w3: 'Durable materials picked for Malaysia’s humidity',
+    ctaTitle: 'Get a kitchen cabinet quote in Kajang',
+    ctaText: 'Send us your kitchen measurements and ideas on WhatsApp and we will help you spec the right cabinets. Hubungi kami untuk sebut harga.',
+    ctaBtn: 'Contact us →',
+    visit: 'Visit our Kajang workshop',
+  },
+  ms: {
+    h1: 'Kabinet Dapur Kajang — dibuat & dibekal tempatan',
+    lead: 'Mencari pembuat kabinet dapur di Kajang? HOMADE SELANGOR telah mengeluar dan membekal panel pintu kabinet serta kabinet dapur dari bengkel kami di Kajang sejak 2012 — memberi khidmat kepada pemilik rumah dan kontraktor di sekitar Kajang dan seluruh Lembah Klang.',
+    introTitle: 'Pembuat kabinet berakar di Kajang',
+    intro: 'Bengkel kami terletak di Kg Simpang Balak, Kajang — berdekatan pekan Kajang, Sungai Chua, Kajang Perdana dan Sungai Long, serta mudah dihubungi dari Bangi, Semenyih, Cheras, Serdang dan Seri Kembangan. Kerana kami membuat secara tempatan, kami mengawal kualiti dan masa siap tanpa memberi kepada pihak luar.',
+    areasTitle: 'Kawasan yang kami khidmat dari Kajang',
+    servicesTitle: 'Apa yang kami lakukan untuk rumah di Kajang',
+    servicesLead: 'Dari satu dapur hingga pengubahsuaian rumah penuh:',
+    s1: 'Kabinet dapur lengkap — atas & bawah, island, unit tinggi',
+    s2: 'Panel pintu kabinet kemasan melamine, laminate/HPL dan kaca',
+    s3: 'Kabinet dapur keluli tahan karat (FORMOSA) untuk dapur lembap',
+    s4: 'Almari baju, unit TV, kabinet pameran & penyimpanan',
+    whyTitle: 'Kenapa pilih pembuat tempatan Kajang',
+    w1: 'Bengkel tempatan — datang, bincang dan lihat kemasan sendiri',
+    w2: 'Kami buat panel pintu sendiri — harga dan konsistensi lebih baik',
+    w3: 'Material tahan lama dipilih untuk iklim lembap Malaysia',
+    ctaTitle: 'Dapatkan sebut harga kabinet dapur di Kajang',
+    ctaText: 'Hantar ukuran dapur dan idea anda di WhatsApp dan kami bantu tentukan kabinet yang sesuai. Hubungi kami untuk sebut harga.',
+    ctaBtn: 'Hubungi kami →',
+    visit: 'Lawati bengkel kami di Kajang',
+  },
+}[lang];
+
+const areas = ['Kajang', 'Kajang Perdana', 'Sungai Chua', 'Sungai Long', 'Bangi', 'Semenyih', 'Cheras', 'Serdang', 'Seri Kembangan'];
+const services = [c.s1, c.s2, c.s3, c.s4];
+const whys = [c.w1, c.w2, c.w3];
+---
+<BaseLayout lang={lang} slug="kabinet-dapur-kajang" title={seo.title} description={seo.description} ogImage="assets/img/kitchen-classic.jpg">
+  <main>
+    <section class="banner">
+      <div class="banner__bg">
+        <img src="/assets/img/kitchen-classic.jpg" alt="" width="1600" height="500" />
+        <div class="banner__overlay"></div>
+      </div>
+      <div class="container">
+        <div class="banner__inner">
+          <h1>{c.h1}</h1>
+          <div class="breadcrumb"><a href={localizedPath(lang, '')}>{d.navHome}</a> &nbsp;/&nbsp; Kajang</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container split">
+        <div>
+          <span class="kicker">Kajang, Selangor</span>
+          <h2>{c.introTitle}</h2>
+          <p class="lead">{c.lead}</p>
+          <p>{c.intro}</p>
+          <h3 style="margin-top:1.4em">{c.areasTitle}</h3>
+          <nav class="chips" style="justify-content:flex-start" aria-label="Service areas">
+            {areas.map((a) => <span class="chip" style="cursor:default">{a}</span>)}
+          </nav>
+        </div>
+        <div><img src="/assets/img/kitchen-premium.jpg" alt="Kitchen cabinet project in Kajang — HOMADE Selangor" loading="lazy" width="800" height="600" /></div>
+      </div>
+    </section>
+
+    <section class="section section--tint">
+      <div class="container">
+        <div class="grid grid--split">
+          <div>
+            <h2>{c.servicesTitle}</h2>
+            <p class="lead">{c.servicesLead}</p>
+            <ul class="ticks">{services.map((s) => <li>{s}</li>)}</ul>
+            <div style="margin-top:20px"><a class="btn btn--outline" href={localizedPath(lang, 'products')}>{d.viewRange}</a></div>
+          </div>
+          <div>
+            <h2>{c.whyTitle}</h2>
+            <ul class="ticks">{whys.map((w) => <li>{w}</li>)}</ul>
+            <div style="margin-top:20px"><a class="btn btn--wa" href={waLink(lang, 'Kabinet dapur Kajang')} target="_blank" rel="noopener">{d.waChat}</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2 class="center">{c.visit}</h2>
+        <p class="center muted" style="max-width:640px;margin:0 auto 8px">{NAP.street}, {NAP.postalCode} {NAP.locality}, {NAP.region} · {NAP.contactPerson} {NAP.phoneDisplay}</p>
+        <p class="center" style="margin:0 auto 14px"><a class="link-arrow" href={NAP.googleMaps} target="_blank" rel="noopener">{d.getDirections}: {d.viaGoogleMaps}</a> &nbsp;·&nbsp; <a class="link-arrow" href={NAP.waze} target="_blank" rel="noopener">{d.viaWaze}</a></p>
+        <iframe class="map" title="HOMADE SELANGOR — workshop location, Kajang, Selangor" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src={MAP_EMBED}></iframe>
+        <p class="center" style="font-size:.82rem;color:var(--muted);margin-top:10px">{d.mapCaption}</p>
+      </div>
+    </section>
+
+    <CtaBand lang={lang} title={c.ctaTitle} text={c.ctaText} btn={c.ctaBtn} />
+  </main>
+</BaseLayout>

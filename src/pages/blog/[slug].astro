@@ -1,0 +1,11 @@
+---
+import Article from '../../components/pages/Article.astro';
+import { getAllPosts } from '../../lib/posts';
+
+export async function getStaticPaths() {
+  const posts = await getAllPosts();
+  return posts.map((p) => ({ params: { slug: p.slug }, props: { post: p } }));
+}
+const { post } = Astro.props;
+---
+<Article lang="en" post={post} />
