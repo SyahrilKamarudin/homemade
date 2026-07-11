@@ -97,35 +97,44 @@ p { margin: 0 0 1rem; }
   display: flex; align-items: center; justify-content: space-between;
   height: 76px; gap: 16px;
 }
-.brand { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 1.15rem; color: var(--ink); }
+.brand { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 1.15rem; color: var(--ink); flex-shrink: 0; white-space: nowrap; }
 .brand:hover { color: var(--ink); }
-.brand img { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; }
+.brand img { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
 .brand small {
   display: block; font-size: .62rem; font-weight: 500; letter-spacing: .12em;
-  color: var(--muted); text-transform: uppercase;
+  color: var(--muted); text-transform: uppercase; white-space: nowrap;
 }
-.header-right { display: flex; align-items: center; gap: 14px; }
-.nav-list { display: flex; align-items: center; gap: 6px; list-style: none; margin: 0; padding: 0; }
+.header-right { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.nav-list { display: flex; align-items: center; gap: 2px; list-style: none; margin: 0; padding: 0; flex-wrap: nowrap; }
 .nav-list a {
-  color: var(--ink); font-weight: 500; font-size: .95rem; padding: 10px 16px;
-  border-radius: 100px; transition: .15s;
+  color: var(--ink); font-weight: 500; font-size: .88rem; padding: 9px 12px;
+  border-radius: 100px; transition: .15s; white-space: nowrap;
 }
 .nav-list a:hover { background: var(--green-soft); color: var(--green-dark); }
 .nav-list a[aria-current="page"] { background: var(--green-soft); color: var(--green-dark); }
 
-.lang-switch { display: flex; align-items: center; background: var(--green-soft); border-radius: 100px; padding: 3px; gap: 2px; }
+.lang-switch { display: flex; align-items: center; background: var(--green-soft); border-radius: 100px; padding: 3px; gap: 2px; flex-shrink: 0; }
 .lang-switch a {
   border: 0; cursor: pointer; font-family: inherit; font-weight: 600; font-size: .82rem;
   padding: 6px 14px; border-radius: 100px; background: transparent; color: var(--green-dark); transition: .15s;
+  white-space: nowrap;
 }
 .lang-switch a[aria-current="true"] { background: var(--green); color: #fff; }
+
+.header-cta { white-space: nowrap; flex-shrink: 0; }
 
 /* mobile nav */
 .nav-toggle {
   display: none; background: transparent; border: 0; cursor: pointer; padding: 8px;
-  color: var(--ink); font-size: 1.4rem; line-height: 1;
+  color: var(--ink); font-size: 1.4rem; line-height: 1; flex-shrink: 0;
 }
-@media (max-width: 900px) {
+
+/* Below this, the full inline nav (7 items + lang switch + CTA) no longer
+   fits the 1200px container without squeezing/wrapping — collapse to the
+   hamburger menu instead of letting flex-shrink break the text mid-word.
+   Measured: BM labels (longest) need ~1336px of natural width; 1400px
+   leaves a safety margin for scrollbars/zoom. */
+@media (max-width: 1400px) {
   .nav-toggle { display: inline-flex; }
   .nav-list {
     position: absolute; top: 76px; left: 0; right: 0; flex-direction: column;
@@ -134,6 +143,7 @@ p { margin: 0 0 1rem; }
     display: none;
   }
   .nav-list.is-open { display: flex; }
+  .nav-list a { white-space: normal; font-size: .95rem; padding: 12px 16px; }
   .header-right { gap: 8px; }
   .header-cta { display: none; }
 }
