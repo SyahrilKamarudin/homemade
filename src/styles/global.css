@@ -97,12 +97,12 @@ p { margin: 0 0 1rem; }
   display: flex; align-items: center; justify-content: space-between;
   height: 76px; gap: 16px;
 }
-.brand { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 1.15rem; color: var(--ink); flex-shrink: 0; white-space: nowrap; }
+.brand { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 1.15rem; color: var(--ink); min-width: 0; }
 .brand:hover { color: var(--ink); }
 .brand img { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
 .brand small {
   display: block; font-size: .62rem; font-weight: 500; letter-spacing: .12em;
-  color: var(--muted); text-transform: uppercase; white-space: nowrap;
+  color: var(--muted); text-transform: uppercase;
 }
 .header-right { display: flex; align-items: center; gap: 10px; min-width: 0; }
 .nav-list { display: flex; align-items: center; gap: 2px; list-style: none; margin: 0; padding: 0; flex-wrap: nowrap; }
@@ -148,6 +148,21 @@ p { margin: 0 0 1rem; }
   .header-cta { display: none; }
 }
 
+/* Phones: brand + lang-switch + hamburger must fit ~320-375px alongside the
+   24px container padding. Compact the non-shrinkable header-right controls
+   so the row never exceeds the viewport (which previously forced mobile
+   browsers to auto-zoom-out the whole page, showing blank margin). */
+@media (max-width: 480px) {
+  .site-header__inner { padding: 0 12px; gap: 6px; }
+  .brand { font-size: .88rem; gap: 6px; }
+  .brand img { width: 34px; height: 34px; }
+  .brand small { font-size: .56rem; }
+  .header-right { gap: 2px; }
+  .lang-switch { padding: 2px; }
+  .lang-switch a { padding: 4px 8px; font-size: .74rem; }
+  .nav-toggle { padding: 3px; font-size: 1.2rem; }
+}
+
 /* hero */
 .hero { position: relative; color: #fff; overflow: hidden; }
 .hero__bg { position: absolute; inset: 0; z-index: 0; }
@@ -178,13 +193,13 @@ p { margin: 0 0 1rem; }
 .breadcrumb a:hover { color: #fff; }
 
 /* stats */
-.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 24px; text-align: center; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(140px, 100%), 1fr)); gap: 24px; text-align: center; }
 .stats__num { font-size: 2.4rem; font-weight: 700; color: var(--green-dark); line-height: 1; }
 .stats__lbl { font-size: .9rem; color: var(--muted); margin-top: 6px; }
 
 /* split (image + text) */
 .split {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
   gap: 56px; align-items: center;
 }
 .split img { border-radius: 14px; box-shadow: 0 10px 30px rgba(43,47,38,.08); width: 100%; }
@@ -196,9 +211,9 @@ p { margin: 0 0 1rem; }
 
 /* card grid */
 .grid { display: grid; gap: 26px; }
-.grid--cards { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-.grid--cards-lg { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-.grid--split { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+.grid--cards { grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); }
+.grid--cards-lg { grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); }
+.grid--split { grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); }
 
 .card {
   background: #fff; border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
@@ -284,7 +299,7 @@ p { margin: 0 0 1rem; }
 .site-footer { background: var(--footer-bg); color: var(--footer-text); padding: 64px 0 28px; font-size: .92rem; }
 .site-footer a { color: var(--footer-text); }
 .site-footer a:hover { color: var(--green); }
-.footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; }
+.footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 40px; }
 .footer-brand { min-width: 260px; }
 .footer-brand__row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
 .footer-brand__row img { width: 44px; height: 44px; border-radius: 50%; }
