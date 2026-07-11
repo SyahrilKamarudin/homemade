@@ -1,9 +1,7 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-// 🚩 TODO(client): swap this to the final custom domain once provided.
-// Everything (sitemap, hreflang, canonical, OG absolute URLs) derives from it.
-const SITE = 'https://homade-selangor.netlify.app';
+const SITE = 'https://www.kabinetkajang.com';
 
 export default defineConfig({
   site: SITE,
