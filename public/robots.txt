@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.kabinetkajang.com/sitemap-index.xml
+Sitemap: https://kabinetkajang.com/sitemap-index.xml

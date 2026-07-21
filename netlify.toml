@@ -8,6 +8,14 @@
 [build.environment]
   NODE_VERSION = "20"
 
+# Astro's sitemap integration emits sitemap-index.xml, but crawlers & humans
+# often look for /sitemap.xml. Serve the index at that conventional path too
+# (200 rewrite, not a redirect, so the XML is returned directly).
+[[redirects]]
+  from = "/sitemap.xml"
+  to = "/sitemap-index.xml"
+  status = 200
+
 # Long-cache the fingerprinted/static assets. HTML stays revalidated by default.
 [[headers]]
   for = "/assets/img/*"
