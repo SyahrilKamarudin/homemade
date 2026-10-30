@@ -195,7 +195,7 @@ export const posts: Post[] = [
 </ul>
 <h2>How to budget</h2>
 <p>Decide your material and door finish first — that sets the base rate. Then add accessories and worktop. A simple, well-built kitchen costs less than a premium island layout, but both should use durable materials at wet zones.</p>
-<p>🚩 <em>We keep exact prices off the website so quotes stay accurate to your real measurements.</em> Send us your kitchen size on WhatsApp (012-231 0118) for a tailored quote.</p>`,
+<p>We keep exact prices off the website so quotes stay accurate to your real measurements. Send us your kitchen size on WhatsApp (012-231 0118) for a tailored quote.</p>`,
       ms: `<p>Kebanyakan pembuat kabinet di Malaysia beri sebut harga secara <strong>per kaki (foot run)</strong> — panjang kabinet di sepanjang dinding, diukur dalam kaki, dibahagi kepada kabinet atas dan bawah. Berikut apa yang sebenarnya menentukan angka itu.</p>
 <h2>Kaedah per kaki</h2>
 <p>Jumlah panjang anda (cth. 10 kaki bawah + 8 kaki atas) didarab dengan kadar per kaki. Kadar bergantung terutamanya pada pilihan material dan pintu.</p>
@@ -209,7 +209,7 @@ export const posts: Post[] = [
 </ul>
 <h2>Cara bajet</h2>
 <p>Tentukan material dan kemasan pintu dahulu — itu menetapkan kadar asas. Kemudian tambah aksesori dan worktop. Dapur ringkas yang kukuh lebih murah daripada susun atur island premium, tetapi kedua-duanya patut guna material tahan lama di zon basah.</p>
-<p>🚩 <em>Kami tidak letak harga tepat di laman web supaya sebut harga kekal tepat dengan ukuran sebenar anda.</em> Hantar saiz dapur anda di WhatsApp (012-231 0118) untuk sebut harga khusus.</p>`,
+<p>Kami tidak letak harga tepat di laman web supaya sebut harga kekal tepat dengan ukuran sebenar anda. Hantar saiz dapur anda di WhatsApp (012-231 0118) untuk sebut harga khusus.</p>`,
     },
     faq: {
       en: [
@@ -258,7 +258,7 @@ export const posts: Post[] = [
 <h2>4. Stainless steel accents</h2>
 <p>Our FORMOSA stainless steel cabinets suit wet zones and busy kitchens — durable, hygienic and increasingly used as a design feature, not just a utility.</p>
 <h2>Make it practical</h2>
-<p>Whatever the look, use durable materials at the sink, plan your work triangle, and choose good hinges and drawer runners. 🚩 <em>We will add real project photos here soon.</em></p>
+<p>Whatever the look, use durable materials at the sink, plan your work triangle, and choose good hinges and drawer runners.</p>
 <p>Planning a refresh? WhatsApp us your ideas and space and we will help you spec it.</p>`,
       ms: `<p>Trend datang dan pergi, tetapi dapur yang baik mengimbangi rupa dengan cara anda memasak sebenarnya. Berikut gaya kabinet yang paling banyak kami bina untuk rumah Lembah Klang pada 2026.</p>
 <h2>1. Muka bersih tanpa pemegang</h2>
@@ -270,7 +270,7 @@ export const posts: Post[] = [
 <h2>4. Sentuhan keluli tahan karat</h2>
 <p>Kabinet keluli tahan karat FORMOSA kami sesuai untuk zon basah dan dapur sibuk — tahan lama, higienik dan semakin digunakan sebagai elemen reka bentuk, bukan sekadar utiliti.</p>
 <h2>Jadikan ia praktikal</h2>
-<p>Apa pun rupanya, guna material tahan lama di sinki, rancang segi tiga kerja, dan pilih engsel serta runner laci yang baik. 🚩 <em>Kami akan tambah gambar projek sebenar di sini tidak lama lagi.</em></p>
+<p>Apa pun rupanya, guna material tahan lama di sinki, rancang segi tiga kerja, dan pilih engsel serta runner laci yang baik.</p>
 <p>Merancang pengubahsuaian? WhatsApp kami idea dan ruang anda dan kami bantu tentukan.</p>`,
     },
     faq: {

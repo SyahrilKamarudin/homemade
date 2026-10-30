@@ -21,9 +21,9 @@ export const NAP = {
   geo: { lat: 3.015554, lng: 101.758654 },
   googleMaps: 'https://maps.app.goo.gl/WhYoDH3rC4W26rLy9',
   waze: 'https://waze.com/ul/hw2835sfqu',
-  // Opening hours — confirmed by client
-  openingHours: 'Mo-Fr 08:30-17:30',
-  openingHoursDisplay: { en: 'Mon – Fri, 8.30 am – 5.30 pm', ms: 'Isnin – Jumaat, 8.30 pg – 5.30 ptg' },
+  // Opening hours — confirmed by client (Mon–Sat, 9am–6pm)
+  openingHours: 'Mo-Sa 09:00-18:00',
+  openingHoursDisplay: { en: 'Mon – Sat, 9.00 am – 6.00 pm', ms: 'Isnin – Sabtu, 9.00 pg – 6.00 ptg' },
 };
 
 // Google Maps embed centred on the exact workshop coordinates.
