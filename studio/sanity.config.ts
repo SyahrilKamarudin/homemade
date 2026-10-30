@@ -5,7 +5,7 @@ import { schemaTypes } from './schemas';
 
 // 🚩 TODO(setup): paste your Sanity project id here (from sanity.io/manage),
 // or set it once via `npx sanity init` which writes it for you.
-const projectId = process.env.SANITY_STUDIO_PROJECT_ID || 'wdldkf7t';
+const projectId = process.env.SANITY_STUDIO_PROJECT_ID || 'wdldkf9t';
 const dataset = process.env.SANITY_STUDIO_DATASET || 'production';
 
 export default defineConfig({

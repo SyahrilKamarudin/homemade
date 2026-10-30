@@ -6,7 +6,7 @@ import imageUrlBuilder from '@sanity/image-url';
 
 // HOMADE SELANGOR Sanity project. The project id is public (not a secret), so it
 // is committed here as the default; an env var can still override it per build.
-const projectId = (import.meta.env.PUBLIC_SANITY_PROJECT_ID as string | undefined) ?? 'wdldkf7t';
+const projectId = (import.meta.env.PUBLIC_SANITY_PROJECT_ID as string | undefined) ?? 'wdldkf9t';
 const dataset = (import.meta.env.PUBLIC_SANITY_DATASET as string | undefined) ?? 'production';
 const apiVersion = (import.meta.env.PUBLIC_SANITY_API_VERSION as string | undefined) ?? '2024-01-01';
 
