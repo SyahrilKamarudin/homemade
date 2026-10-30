@@ -37,6 +37,7 @@ export const post = defineType({
       options: {
         hotspot: true,
       },
+      description: 'Upload a cover photo. If left empty, the fallback filename below is used.',
       fields: [
         {
           name: 'alt',
@@ -45,7 +46,14 @@ export const post = defineType({
           validation: (Rule) => Rule.required().warning('Alt text is strongly recommended for SEO'),
         },
       ],
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) => Rule.required().warning('A cover image is strongly recommended'),
+    }),
+    defineField({
+      name: 'imageFallback',
+      title: 'Fallback cover filename (advanced)',
+      type: 'string',
+      description:
+        'Only used when no cover image is uploaded above. A filename already in the site, e.g. "kitchen-wood.jpg". Leave as-is.',
     }),
     defineField({
       name: 'body',

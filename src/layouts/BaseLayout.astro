@@ -7,6 +7,7 @@ import ContactChooser from '../components/ContactChooser.astro';
 import { NAP } from '../config';
 import type { Lang } from '../config';
 import { getSettings } from '../lib/settings';
+import { getSeoOverride } from '../lib/seo';
 import { localizedPath } from '../i18n/routes';
 
 interface Props {
@@ -17,9 +18,14 @@ interface Props {
   ogImage?: string;
 }
 
-const { lang, slug, title, description, ogImage = 'assets/img/formosa-booth.jpg' } = Astro.props;
+const { lang, slug, title: defaultTitle, description: defaultDescription, ogImage = 'assets/img/formosa-booth.jpg' } = Astro.props;
 const site = Astro.site!; // from astro.config (final domain 🚩)
 const settings = await getSettings();
+
+// Per-page SEO: a CMS override (seoMeta) wins over the built-in default.
+const seoOverride = await getSeoOverride(slug, lang);
+const title = seoOverride.title || defaultTitle;
+const description = seoOverride.description || defaultDescription;
 const announce = settings.announcement ? settings.announcement[lang] : '';
 
 const canonical = new URL(localizedPath(lang, slug), site).href;

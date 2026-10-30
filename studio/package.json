@@ -9,7 +9,7 @@
     "start": "sanity start",
     "build": "sanity build",
     "deploy": "sanity deploy",
-    "import-seed": "sanity dataset import ./seed/posts.ndjson production --replace"
+    "import-seed": "node import-seed.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",

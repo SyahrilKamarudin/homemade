@@ -1,6 +1,16 @@
-# HOMADE SELANGOR — Blog Admin (Sanity Studio)
+# HOMADE SELANGOR — Content Admin (Sanity Studio)
 
-This is the **blog CMS** where you post articles and upload photos **with email login — no code, no GitHub**. The site rebuilds automatically when you publish.
+This is the **admin panel** where you edit the website **with email login — no code, no GitHub**. The site rebuilds automatically when you publish.
+
+**What you can edit from here:**
+- **Products** — add / edit / reorder / remove catalog items and upload real photos
+- **Home / About / Products page copy** — the headlines and paragraphs on those pages
+- **Site Settings** — enquiry phone numbers, email, Facebook, announcement banner
+- **Blog posts** — write guide articles (EN & BM) with photos and FAQ
+- **SEO** — the Google title & description for each page
+- **Project / Gallery photos** — real installation photos
+
+Anything you leave blank falls back to the built-in text, so the site never breaks.
 
 ## First-time setup (one person does this, then invites others)
 
@@ -29,6 +39,19 @@ https://homade-selangor.sanity.studio
 
 Save that URL. Anyone you invite logs in there with email/Google — no GitHub needed.
 
+### 2b. Import the starter content (one time)
+
+So the Studio opens pre-filled with the current website content (all products,
+page copy, SEO and the 4 guide articles) — ready for you to edit instead of
+starting from a blank page:
+
+```bash
+npm run import-seed
+```
+
+(Run this from the `studio/` folder, after step 1. It imports
+`studio/seed/*.ndjson`. Safe to re-run.)
+
 ### 3. Connect the website to the CMS
 
 Copy your **project ID** from `sanity.cli.json` (looks like `abc12xyz`) and set it as an environment variable in **Netlify**:
@@ -53,7 +76,7 @@ When you click **Publish** in the Studio, the site should rebuild automatically.
    - **URL:** paste the Netlify build hook URL
    - **Dataset:** production
    - **Trigger on:** Create, Update, Delete
-   - **Filter (optional):** `_type == "post" || _type == "project" || _type == "siteSettings"`
+   - **Filter (optional):** `_type in ["post","project","product","siteSettings","homePage","aboutPage","productsPage","seoMeta"]`
    - **Save**
 
 Now: **Write → Publish in Studio → site rebuilds in ~1-2 min → article live.**
@@ -70,6 +93,31 @@ In the Studio sidebar there is a **Site Settings** entry (single page). Open it 
 - **Announcement banner** — turn the toggle on + type a short message (EN & BM) to show a green strip across the top of every page (e.g. a promo or holiday-hours notice). Toggle off to hide it.
 
 If Site Settings is left empty, the site uses the built-in defaults in `src/config.ts`, so nothing ever breaks.
+
+## Products — edit the catalog
+
+**Product (catalog item)** in the sidebar holds every card on the Products page.
+
+- **Create new** to add a product; choose its **Category section** (Cabinet Doors / Kitchen / Furniture / Appliances), write the **name** and **description** (EN & BM), and upload a **photo** (+ alt text).
+- **Reorder** within a category with the **Sort order** number (lower = first).
+- **Delete** or edit any item → Publish → the Products page updates in ~1-2 min.
+- The **Enquire / WhatsApp** button is added automatically — no price, no cart.
+
+Seeded products start with the existing stock photos (via a fallback filename); upload a real photo on any product to replace it.
+
+## Page content — edit the words on each page
+
+Three single pages hold the editable copy:
+
+- **Home page content** — hero headline, "who we are", the 3 feature blocks, and the call-to-action.
+- **About page content** — story, mission, vision, and the FORMOSA section.
+- **Products page intro** — the heading and intro paragraph above the catalog.
+
+Open one, change any field (EN & BM), **Publish**. Leave a field blank to keep the built-in text.
+
+## SEO — Google titles & descriptions
+
+**SEO (page titles & descriptions)** lets you fine-tune the Google title and description per page. Keep titles ~60 characters and descriptions ~150, and weave in keywords like "kabinet dapur Kajang". Any page you don't list keeps its built-in, keyword-optimised default.
 
 ## Daily use (writing & publishing)
 

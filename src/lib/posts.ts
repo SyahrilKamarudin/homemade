@@ -54,7 +54,7 @@ function fromSeed(): LoadedPost[] {
 // --- Sanity → LoadedPost -----------------------------------------------------
 const POSTS_QUERY = `*[_type == "post" && defined(slug.current)] | order(publishedAt desc){
   "slug": slug.current,
-  title, h1, excerpt, metaTitle, metaDescription, publishedAt, coverImage, body, faq
+  title, excerpt, metaTitle, metaDescription, publishedAt, coverImage, imageFallback, body, faq
 }`;
 
 function loc(obj: any, fallback = ''): Record<Lang, string> {
@@ -65,17 +65,23 @@ function loc(obj: any, fallback = ''): Record<Lang, string> {
 
 function fromSanity(docs: any[]): LoadedPost[] {
   return docs.map((doc) => {
+    // Schema field "title" is the main/display heading (H1). metaTitle overrides
+    // the SEO <title> only; it falls back to the main title when blank.
+    const h1 = loc(doc.title);
     const metaTitle = loc(doc.metaTitle);
-    const h1 = loc(doc.h1);
-    // metaTitle falls back to h1 if the editor left it blank
     if (!metaTitle.en) metaTitle.en = h1.en;
     if (!metaTitle.ms) metaTitle.ms = h1.ms;
     const faqEn: FaqItem[] = (doc.faq ?? []).map((f: any) => ({ q: f?.question?.en ?? '', a: f?.answer?.en ?? '' }));
     const faqMs: FaqItem[] = (doc.faq ?? []).map((f: any) => ({ q: f?.question?.ms ?? f?.question?.en ?? '', a: f?.answer?.ms ?? f?.answer?.en ?? '' }));
+    const coverImageUrl = doc.coverImage
+      ? imageUrl(doc.coverImage, 1200)
+      : doc.imageFallback
+        ? `/assets/img/${doc.imageFallback}`
+        : '';
     return {
       slug: doc.slug,
-      coverImageUrl: imageUrl(doc.coverImage, 1200),
-      coverAlt: loc(doc.coverImage?.alt, doc.h1?.en ?? ''),
+      coverImageUrl,
+      coverAlt: loc(doc.coverImage?.alt, h1.en),
       date: doc.publishedAt ?? '',
       dateLabel: { en: fmtDate(doc.publishedAt, 'en'), ms: fmtDate(doc.publishedAt, 'ms') },
       metaTitle,

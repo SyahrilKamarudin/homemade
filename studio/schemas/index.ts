@@ -7,6 +7,7 @@ import { siteSettings } from './siteSettings';
 import { homePage } from './homePage';
 import { aboutPage } from './aboutPage';
 import { productsPage } from './productsPage';
+import { seoMeta } from './seoMeta';
 
 export const schemaTypes = [
   // objects
@@ -23,4 +24,5 @@ export const schemaTypes = [
   homePage,
   aboutPage,
   productsPage,
+  seoMeta,
 ];

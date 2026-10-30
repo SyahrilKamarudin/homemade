@@ -46,20 +46,30 @@ Once you have the final domain (or the Netlify subdomain if no custom domain yet
 
 ---
 
-## ✅ Phase 2: Set up the blog CMS (Sanity) (10-15 min)
+## ✅ Phase 2: Set up the content admin (Sanity) (10-15 min)
 
-The site currently serves 4 hardcoded seed articles. To let the client **post new articles with email login**, connect Sanity:
+The site runs on built-in content until you connect Sanity. Connecting it gives the client an **email-login admin panel** to edit — with no code:
+**products** (add/remove + photos), **Home/About/Products page copy**, **SEO titles/descriptions**, **blog posts**, and **site settings** (phones, email, Facebook, announcement banner). Everything falls back to code when blank, so nothing breaks.
 
 ### 2.1 Create a Sanity project
 
 ```bash
 cd studio
+npm install
 npx sanity init --project homade-blog --dataset production
 ```
 
 - Log in with Google or email
 - Create new project → name it "HOMADE Blog"
 - The CLI writes your **project ID** (e.g. `abc12xyz`) to `sanity.cli.json`
+
+### 2.1b Import the starter content (one time)
+
+```bash
+npm run import-seed
+```
+
+Pre-fills the Studio with the current website content (all 15 products, Home/About/Products copy, per-page SEO, and the 4 guide articles) so the client edits real content instead of blank fields. Safe to re-run.
 
 ### 2.2 Deploy the Studio (admin UI)
 
@@ -91,7 +101,7 @@ So the site rebuilds when the client clicks **Publish** in the Studio:
    - URL: paste the Netlify build hook URL
    - Dataset: production
    - Trigger on: Create, Update, Delete
-   - Filter: `_type == "post" || _type == "project"`
+   - Filter: `_type in ["post","project","product","siteSettings","homePage","aboutPage","productsPage","seoMeta"]`
    - **Save**
 
 **Done.** Now: client writes → Publish → site rebuilds in ~1-2 min → article live.
