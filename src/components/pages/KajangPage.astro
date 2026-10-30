@@ -4,11 +4,13 @@ import CtaBand from '../CtaBand.astro';
 import type { Lang } from '../../config';
 import { t } from '../../i18n/strings';
 import { NAP, waLink, MAP_EMBED } from '../../config';
+import { getSettings } from '../../lib/settings';
 import { SEO, localizedPath } from '../../i18n/routes';
 
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const d = t(lang);
+const { contacts } = await getSettings();
 const seo = SEO['kabinet-dapur-kajang'][lang];
 
 const c = {
@@ -103,7 +105,7 @@ const whys = [c.w1, c.w2, c.w3];
           <div>
             <h2>{c.whyTitle}</h2>
             <ul class="ticks">{whys.map((w) => <li>{w}</li>)}</ul>
-            <div style="margin-top:20px"><a class="btn btn--wa" href={waLink(lang, 'Kabinet dapur Kajang')} target="_blank" rel="noopener">{d.waChat}</a></div>
+            <div style="margin-top:20px"><a class="btn btn--wa" href={waLink(lang, 'Kabinet dapur Kajang')} target="_blank" rel="noopener" data-contact data-contact-note="Kabinet dapur Kajang">{d.waChat}</a></div>
           </div>
         </div>
       </div>
@@ -112,7 +114,7 @@ const whys = [c.w1, c.w2, c.w3];
     <section class="section">
       <div class="container">
         <h2 class="center">{c.visit}</h2>
-        <p class="center muted" style="max-width:640px;margin:0 auto 8px">{NAP.street}, {NAP.postalCode} {NAP.locality}, {NAP.region} · {NAP.contactPerson} {NAP.phoneDisplay}</p>
+        <p class="center muted" style="max-width:640px;margin:0 auto 8px">{NAP.street}, {NAP.postalCode} {NAP.locality}, {NAP.region} · {contacts.map((n) => n.display).join(' / ')}</p>
         <p class="center" style="margin:0 auto 14px"><a class="link-arrow" href={NAP.googleMaps} target="_blank" rel="noopener">{d.getDirections}: {d.viaGoogleMaps}</a> &nbsp;·&nbsp; <a class="link-arrow" href={NAP.waze} target="_blank" rel="noopener">{d.viaWaze}</a></p>
         <iframe class="map" title="HOMADE SELANGOR — workshop location, Kajang, Selangor" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src={MAP_EMBED}></iframe>
         <p class="center" style="font-size:.82rem;color:var(--muted);margin-top:10px">{d.mapCaption}</p>

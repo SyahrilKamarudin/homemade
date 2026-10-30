@@ -6,9 +6,9 @@ export const NAP = {
   regNo: '982127-M (201201008607)',
   incorporated: '13 March 2012',
   contactPerson: 'Cheong',
-  phoneDisplay: '012-231 0118',
-  phoneIntl: '+60122310118', // tel: link
-  whatsapp: '60122310118', // wa.me number
+  phoneDisplay: '010-860 7845',
+  phoneIntl: '+60108607845', // tel: link (primary = first enquiry number)
+  whatsapp: '60108607845', // wa.me number (primary)
   street: 'Lot 15B, Jalan Simpang Balak, Kg Simpang Balak',
   locality: 'Kajang',
   region: 'Selangor',
@@ -38,6 +38,24 @@ export const WA_TEXT = {
 export function waLink(lang: 'en' | 'ms', extra?: string) {
   const base = extra ? `${WA_TEXT[lang]} (${extra})` : WA_TEXT[lang];
   return `https://wa.me/${NAP.whatsapp}?text=${encodeURIComponent(base)}`;
+}
+
+// All enquiry numbers. Every contact / enquiry action lets the visitor pick one
+// of these first (see ContactChooser.astro). First entry = primary (used for
+// schema telephone + no-JS fallbacks).
+export const CONTACTS = [
+  { display: '010-860 7845', intl: '60108607845' },
+  { display: '016-260 8854', intl: '60162608854' },
+  { display: '010-236 8854', intl: '60102368854' },
+] as const;
+
+export function telLink(intl: string) {
+  return `tel:+${intl.replace(/^\+/, '')}`;
+}
+
+export function waLinkFor(intl: string, lang: 'en' | 'ms', extra?: string) {
+  const base = extra ? `${WA_TEXT[lang]} (${extra})` : WA_TEXT[lang];
+  return `https://wa.me/${intl}?text=${encodeURIComponent(base)}`;
 }
 
 export type Lang = 'en' | 'ms';

@@ -60,11 +60,11 @@ export const SEO: Record<string, Record<Lang, Seo>> = {
   contact: {
     en: {
       title: 'Contact HOMADE SELANGOR — Cabinet Supplier in Kajang, Klang Valley',
-      description: 'Contact HOMADE SELANGOR in Kajang, Selangor for kitchen cabinets, cabinet doors & fittings. WhatsApp Cheong at 012-231 0118 or send us a message for a quote.',
+      description: 'Contact HOMADE SELANGOR in Kajang, Selangor for kitchen cabinets, cabinet doors & fittings. WhatsApp us at 010-860 7845 or send us a message for a quote.',
     },
     ms: {
       title: 'Hubungi HOMADE SELANGOR — Pembekal Kabinet di Kajang, Lembah Klang',
-      description: 'Hubungi HOMADE SELANGOR di Kajang, Selangor untuk kabinet dapur, pintu kabinet & kelengkapan. WhatsApp Cheong di 012-231 0118 atau hantar mesej untuk sebut harga.',
+      description: 'Hubungi HOMADE SELANGOR di Kajang, Selangor untuk kabinet dapur, pintu kabinet & kelengkapan. WhatsApp kami di 010-860 7845 atau hantar mesej untuk sebut harga.',
     },
   },
   'kabinet-dapur-kajang': {

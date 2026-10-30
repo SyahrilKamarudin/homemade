@@ -1,0 +1,96 @@
+---
+// Global contact chooser. Any element with `data-contact` opens this modal,
+// which lets the visitor pick one of the enquiry numbers (Call / WhatsApp).
+// Optional `data-contact-note` on the trigger is appended to the WhatsApp text.
+import type { Lang } from '../config';
+import { WA_TEXT, telLink, waLinkFor } from '../config';
+import { getSettings } from '../lib/settings';
+import { t } from '../i18n/strings';
+import { localizedPath } from '../i18n/routes';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const d = t(lang);
+const { contacts } = await getSettings();
+---
+<div class="cc-overlay" id="contact-chooser" hidden>
+  <div class="cc-modal" role="dialog" aria-modal="true" aria-labelledby="cc-title">
+    <button class="cc-close" type="button" data-cc-close aria-label={d.closeLabel}>&times;</button>
+    <h3 id="cc-title">{d.chooseTitle}</h3>
+    <p class="cc-sub">{d.chooseSub}</p>
+    <ul class="cc-list">
+      {contacts.map((c) => (
+        <li class="cc-row">
+          <span class="cc-num">{c.display}</span>
+          <span class="cc-actions">
+            <a class="cc-btn cc-call" href={telLink(c.intl)}>{d.callLabel}</a>
+            <a class="cc-btn cc-wa" data-cc-wa data-intl={c.intl} href={waLinkFor(c.intl, lang)} target="_blank" rel="noopener">{d.waLabel}</a>
+          </span>
+        </li>
+      ))}
+    </ul>
+    <a class="cc-sendmsg" href={localizedPath(lang, 'contact')} data-cc-nav>{d.orSendMsg}</a>
+  </div>
+</div>
+
+<script define:vars={{ waBase: WA_TEXT[lang] }}>
+  (function () {
+    const overlay = document.getElementById('contact-chooser');
+    if (!overlay) return;
+    let lastFocus = null;
+
+    function openCC(note) {
+      overlay.querySelectorAll('[data-cc-wa]').forEach(function (a) {
+        const intl = a.getAttribute('data-intl');
+        const text = note ? waBase + ' (' + note + ')' : waBase;
+        a.setAttribute('href', 'https://wa.me/' + intl + '?text=' + encodeURIComponent(text));
+      });
+      overlay.hidden = false;
+      document.body.style.overflow = 'hidden';
+      const c = overlay.querySelector('.cc-close');
+      if (c) c.focus();
+    }
+    function closeCC() {
+      overlay.hidden = true;
+      document.body.style.overflow = '';
+      if (lastFocus) { try { lastFocus.focus(); } catch (e) {} }
+    }
+
+    document.addEventListener('click', function (e) {
+      const trigger = e.target.closest('[data-contact]');
+      if (trigger) {
+        e.preventDefault();
+        lastFocus = trigger;
+        openCC(trigger.getAttribute('data-contact-note'));
+        return;
+      }
+      if (e.target.closest('[data-cc-nav]')) { closeCC(); return; } // let the link navigate
+      if (e.target.closest('[data-cc-close]') || e.target === overlay) { closeCC(); }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !overlay.hidden) closeCC();
+    });
+  })();
+</script>
+
+<style>
+  .cc-overlay { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; background: rgba(20,24,16,.55); padding: 20px; }
+  .cc-overlay[hidden] { display: none; }
+  .cc-modal { background: #fff; border-radius: 16px; max-width: 420px; width: 100%; padding: 26px 24px; position: relative; box-shadow: 0 24px 60px rgba(0,0,0,.25); }
+  .cc-close { position: absolute; top: 8px; right: 14px; border: 0; background: none; font-size: 1.7rem; line-height: 1; cursor: pointer; color: #6b7280; }
+  .cc-modal h3 { margin: 0 0 4px; font-size: 1.2rem; }
+  .cc-sub { margin: 0 0 16px; color: #6b7280; font-size: .9rem; }
+  .cc-list { list-style: none; margin: 0 0 14px; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  .cc-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; border: 1px solid #e7e9e2; border-radius: 12px; padding: 10px 12px; }
+  .cc-num { font-weight: 600; letter-spacing: .01em; }
+  .cc-actions { display: flex; gap: 8px; flex-shrink: 0; }
+  .cc-btn { font-size: .85rem; font-weight: 600; padding: 7px 14px; border-radius: 100px; text-decoration: none; display: inline-block; }
+  .cc-call { background: #f1f6e3; color: #4f6a12; }
+  .cc-wa { background: #25d366; color: #fff; }
+  .cc-sendmsg { display: inline-block; margin-top: 2px; font-weight: 600; color: #6e8a17; font-size: .9rem; text-decoration: none; }
+  @media (max-width: 420px) {
+    .cc-row { flex-direction: column; align-items: stretch; }
+    .cc-actions { justify-content: space-between; }
+    .cc-btn { flex: 1; text-align: center; }
+  }
+</style>

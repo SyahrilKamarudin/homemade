@@ -18,6 +18,6 @@ const desc = d[card.descKey];
     {card.badge && <span class="tag">{card.badge}</span>}
     <h3>{title}</h3>
     <p class="card__desc">{desc}</p>
-    <a class="link-arrow" href={waLink(lang, title)} target="_blank" rel="noopener">{d.enquire}</a>
+    <a class="link-arrow" href={waLink(lang, title)} target="_blank" rel="noopener" data-contact data-contact-note={title}>{d.enquire}</a>
   </div>
 </article>

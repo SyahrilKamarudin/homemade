@@ -2,6 +2,7 @@ import { localeString, localeText, localePortableText } from './locale';
 import { faqItem } from './faqItem';
 import { post } from './post';
 import { project } from './project';
+import { siteSettings } from './siteSettings';
 
 export const schemaTypes = [
   // objects
@@ -12,4 +13,5 @@ export const schemaTypes = [
   // documents
   post,
   project,
+  siteSettings,
 ];

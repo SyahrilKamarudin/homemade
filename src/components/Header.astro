@@ -35,7 +35,7 @@ const alt = altPath(lang, slug);
         <a href={lang === 'ms' ? localizedPath('ms', slug) : alt} aria-current={lang === 'ms' ? 'true' : 'false'} hreflang="ms">BM</a>
       </div>
 
-      <a class="btn btn--primary header-cta" href={localizedPath(lang, 'contact')}>{d.getQuote}</a>
+      <a class="btn btn--primary header-cta" href={localizedPath(lang, 'contact')} data-contact>{d.getQuote}</a>
 
       <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-list">☰</button>
     </div>

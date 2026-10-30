@@ -13,6 +13,23 @@ export default defineConfig({
   title: 'HOMADE SELANGOR — Blog & Photos',
   projectId,
   dataset,
-  plugins: [structureTool(), visionTool()],
+  plugins: [
+    structureTool({
+      structure: (S) =>
+        S.list()
+          .title('Content')
+          .items([
+            // Singleton: one editable "Site Settings" document
+            S.listItem()
+              .title('Site Settings')
+              .id('siteSettings')
+              .child(S.document().schemaType('siteSettings').documentId('siteSettings')),
+            S.divider(),
+            S.documentTypeListItem('post').title('Blog Posts'),
+            S.documentTypeListItem('project').title('Projects / Photos'),
+          ]),
+    }),
+    visionTool(),
+  ],
   schema: { types: schemaTypes },
 });

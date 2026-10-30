@@ -2,12 +2,14 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import type { Lang } from '../../config';
 import { t } from '../../i18n/strings';
-import { NAP, waLink, MAP_EMBED } from '../../config';
+import { NAP, telLink, waLinkFor, waLink, MAP_EMBED } from '../../config';
+import { getSettings } from '../../lib/settings';
 import { SEO, localizedPath } from '../../i18n/routes';
 
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const d = t(lang);
+const { contacts, email, facebook } = await getSettings();
 const seo = SEO['contact'][lang];
 const successUrl = localizedPath(lang, 'contact') + '?success=true';
 ---
@@ -43,16 +45,21 @@ const successUrl = localizedPath(lang, 'contact') + '?success=true';
             <div class="contact-row__ic" aria-hidden="true">📞</div>
             <div>
               <h4>{d.contactPhone}</h4>
-              <p><strong>{NAP.contactPerson}</strong> · <a href={`tel:${NAP.phoneIntl}`}>{NAP.phoneDisplay}</a></p>
+              {contacts.map((c) => (
+                <p style="margin:0 0 6px">
+                  <strong>{c.display}</strong> &nbsp;·&nbsp;
+                  <a href={telLink(c.intl)}>{d.callLabel}</a> &nbsp;·&nbsp;
+                  <a href={waLinkFor(c.intl, lang)} target="_blank" rel="noopener">{d.waLabel}</a>
+                </p>
+              ))}
             </div>
           </div>
-          <div class="contact-row">
-            <div class="contact-row__ic" aria-hidden="true">💬</div>
-            <div>
-              <h4>WhatsApp</h4>
-              <p><a href={waLink(lang)} target="_blank" rel="noopener">{d.waChat} →</a></p>
+          {email && (
+            <div class="contact-row">
+              <div class="contact-row__ic" aria-hidden="true">✉️</div>
+              <div><h4>{d.contactEmail}</h4><p><a href={`mailto:${email}`}>{email}</a></p></div>
             </div>
-          </div>
+          )}
           <div class="contact-row">
             <div class="contact-row__ic" aria-hidden="true">🧭</div>
             <div>
@@ -62,12 +69,12 @@ const successUrl = localizedPath(lang, 'contact') + '?success=true';
           </div>
           <div class="contact-row">
             <div class="contact-row__ic" aria-hidden="true">📘</div>
-            <div><h4>Facebook</h4><p><a href={NAP.facebook} target="_blank" rel="noopener">{d.contactFbMsg}</a></p></div>
+            <div><h4>Facebook</h4><p><a href={facebook} target="_blank" rel="noopener">{d.contactFbMsg}</a></p></div>
           </div>
 
           <div style="display:flex;gap:12px;flex-wrap:wrap">
-            <a class="btn btn--wa" href={waLink(lang)} target="_blank" rel="noopener" style="margin-top:20px">{d.waChat}</a>
-            <a class="fb-btn" href={NAP.facebook} target="_blank" rel="noopener">f&nbsp; {d.fbFollow}</a>
+            <a class="btn btn--wa" href={waLink(lang)} target="_blank" rel="noopener" style="margin-top:20px" data-contact>{d.waChat}</a>
+            <a class="fb-btn" href={facebook} target="_blank" rel="noopener">f&nbsp; {d.fbFollow}</a>
           </div>
         </div>
 

@@ -77,12 +77,12 @@ export const posts: Post[] = [
       en: [
         { q: 'What is the most durable kitchen cabinet material in Malaysia?', a: 'For humidity, marine plywood and stainless steel last best. Marine plywood resists moisture at wet zones, while stainless steel is fully waterproof and hygienic.' },
         { q: 'Is melamine or plywood better for cabinets?', a: 'Plywood is stronger and holds hinges better, so it is ideal for the carcass; melamine is a cost-effective door finish. Many kitchens combine a plywood carcass with melamine or laminate doors.' },
-        { q: 'Does HOMADE make stainless steel kitchen cabinets?', a: 'Yes. Our FORMOSA line includes stainless steel kitchen cabinets built for demanding, humid Malaysian kitchens. WhatsApp us at 012-231 0118 for details.' },
+        { q: 'Does HOMADE make stainless steel kitchen cabinets?', a: 'Yes. Our FORMOSA line includes stainless steel kitchen cabinets built for demanding, humid Malaysian kitchens. WhatsApp us at 010-860 7845 for details.' },
       ],
       ms: [
         { q: 'Apakah material kabinet dapur paling tahan lama di Malaysia?', a: 'Untuk iklim lembap, marine plywood dan keluli tahan karat paling tahan. Marine plywood tahan lembap di zon basah, manakala keluli tahan karat kalis air sepenuhnya dan higienik.' },
         { q: 'Melamine atau plywood lebih baik untuk kabinet?', a: 'Plywood lebih kukuh dan memegang engsel lebih baik, sesuai untuk carcass; melamine ialah kemasan pintu yang menjimatkan. Banyak dapur menggabungkan carcass plywood dengan pintu melamine atau laminate.' },
-        { q: 'Adakah HOMADE membuat kabinet dapur keluli tahan karat?', a: 'Ya. Lini FORMOSA kami termasuk kabinet dapur keluli tahan karat untuk dapur Malaysia yang lembap dan sibuk. WhatsApp kami di 012-231 0118 untuk maklumat.' },
+        { q: 'Adakah HOMADE membuat kabinet dapur keluli tahan karat?', a: 'Ya. Lini FORMOSA kami termasuk kabinet dapur keluli tahan karat untuk dapur Malaysia yang lembap dan sibuk. WhatsApp kami di 010-860 7845 untuk maklumat.' },
       ],
     },
   },
@@ -195,7 +195,7 @@ export const posts: Post[] = [
 </ul>
 <h2>How to budget</h2>
 <p>Decide your material and door finish first — that sets the base rate. Then add accessories and worktop. A simple, well-built kitchen costs less than a premium island layout, but both should use durable materials at wet zones.</p>
-<p>We keep exact prices off the website so quotes stay accurate to your real measurements. Send us your kitchen size on WhatsApp (012-231 0118) for a tailored quote.</p>`,
+<p>We keep exact prices off the website so quotes stay accurate to your real measurements. Send us your kitchen size on WhatsApp (010-860 7845) for a tailored quote.</p>`,
       ms: `<p>Kebanyakan pembuat kabinet di Malaysia beri sebut harga secara <strong>per kaki (foot run)</strong> — panjang kabinet di sepanjang dinding, diukur dalam kaki, dibahagi kepada kabinet atas dan bawah. Berikut apa yang sebenarnya menentukan angka itu.</p>
 <h2>Kaedah per kaki</h2>
 <p>Jumlah panjang anda (cth. 10 kaki bawah + 8 kaki atas) didarab dengan kadar per kaki. Kadar bergantung terutamanya pada pilihan material dan pintu.</p>
@@ -209,7 +209,7 @@ export const posts: Post[] = [
 </ul>
 <h2>Cara bajet</h2>
 <p>Tentukan material dan kemasan pintu dahulu — itu menetapkan kadar asas. Kemudian tambah aksesori dan worktop. Dapur ringkas yang kukuh lebih murah daripada susun atur island premium, tetapi kedua-duanya patut guna material tahan lama di zon basah.</p>
-<p>Kami tidak letak harga tepat di laman web supaya sebut harga kekal tepat dengan ukuran sebenar anda. Hantar saiz dapur anda di WhatsApp (012-231 0118) untuk sebut harga khusus.</p>`,
+<p>Kami tidak letak harga tepat di laman web supaya sebut harga kekal tepat dengan ukuran sebenar anda. Hantar saiz dapur anda di WhatsApp (010-860 7845) untuk sebut harga khusus.</p>`,
     },
     faq: {
       en: [

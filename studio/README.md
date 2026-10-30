@@ -53,12 +53,23 @@ When you click **Publish** in the Studio, the site should rebuild automatically.
    - **URL:** paste the Netlify build hook URL
    - **Dataset:** production
    - **Trigger on:** Create, Update, Delete
-   - **Filter (optional):** `_type == "post" || _type == "project"`
+   - **Filter (optional):** `_type == "post" || _type == "project" || _type == "siteSettings"`
    - **Save**
 
 Now: **Write → Publish in Studio → site rebuilds in ~1-2 min → article live.**
 
 ---
+
+## Site Settings — edit important info without code
+
+In the Studio sidebar there is a **Site Settings** entry (single page). Open it to edit, and **Publish** — the whole site updates in ~1-2 min:
+
+- **Enquiry phone numbers** — the list of numbers shown everywhere. Every "Enquire / WhatsApp" button lets the visitor pick one of these. Add, remove, reorder (the first is the primary). Each has a **Display** (e.g. `010-860 7845`) and a **WhatsApp number** (digits only with country code, e.g. `60108607845`).
+- **Email** — leave blank to hide the email row; fill it to show it on the contact page.
+- **Facebook page URL**.
+- **Announcement banner** — turn the toggle on + type a short message (EN & BM) to show a green strip across the top of every page (e.g. a promo or holiday-hours notice). Toggle off to hide it.
+
+If Site Settings is left empty, the site uses the built-in defaults in `src/config.ts`, so nothing ever breaks.
 
 ## Daily use (writing & publishing)
 

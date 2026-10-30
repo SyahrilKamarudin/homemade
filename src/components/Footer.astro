@@ -1,13 +1,15 @@
 ---
 import type { Lang } from '../config';
 import { t } from '../i18n/strings';
-import { NAP } from '../config';
+import { NAP, telLink } from '../config';
+import { getSettings } from '../lib/settings';
 import { NAV_SLUGS, localizedPath } from '../i18n/routes';
 
 interface Props { lang: Lang; slug: string; }
 const { lang } = Astro.props;
 const d = t(lang);
 const year = 2026;
+const { contacts, facebook } = await getSettings();
 ---
 <footer class="site-footer">
   <div class="container">
@@ -19,7 +21,7 @@ const year = 2026;
         </div>
         <p>{d.footerDesc}</p>
         <p class="footer-reg">Reg. No: {NAP.regNo}</p>
-        <a class="footer-fb" href={NAP.facebook} target="_blank" rel="noopener">f&nbsp; {d.fbFollow}</a>
+        <a class="footer-fb" href={facebook} target="_blank" rel="noopener">f&nbsp; {d.fbFollow}</a>
       </div>
 
       <div>
@@ -35,8 +37,10 @@ const year = 2026;
         <h4>{d.footerVisit}</h4>
         <p style="margin:0">{NAP.street},<br />{NAP.postalCode} {NAP.locality}, {NAP.region}.</p>
         <p style="margin:12px 0 0">
-          <strong>{d.contactPerson}:</strong> {NAP.contactPerson}<br />
-          <a href={`tel:${NAP.phoneIntl}`}>{NAP.phoneDisplay}</a>
+          <strong>{d.contactPhone}:</strong>
+          {contacts.map((c) => (
+            <a href={telLink(c.intl)} style="display:block">{c.display}</a>
+          ))}
         </p>
       </div>
     </div>

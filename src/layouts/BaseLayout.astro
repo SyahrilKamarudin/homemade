@@ -3,8 +3,10 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import ContactChooser from '../components/ContactChooser.astro';
 import { NAP } from '../config';
 import type { Lang } from '../config';
+import { getSettings } from '../lib/settings';
 import { localizedPath } from '../i18n/routes';
 
 interface Props {
@@ -17,6 +19,8 @@ interface Props {
 
 const { lang, slug, title, description, ogImage = 'assets/img/formosa-booth.jpg' } = Astro.props;
 const site = Astro.site!; // from astro.config (final domain 🚩)
+const settings = await getSettings();
+const announce = settings.announcement ? settings.announcement[lang] : '';
 
 const canonical = new URL(localizedPath(lang, slug), site).href;
 const enHref = new URL(localizedPath('en', slug), site).href;
@@ -34,7 +38,14 @@ const jsonLd = {
   image: ogImageUrl,
   '@id': site.href,
   url: canonical,
-  telephone: NAP.phoneIntl,
+  telephone: '+' + settings.contacts[0].intl,
+  contactPoint: settings.contacts.map((c) => ({
+    '@type': 'ContactPoint',
+    telephone: '+' + c.intl,
+    contactType: 'sales',
+    areaServed: 'MY',
+    availableLanguage: ['ms', 'en'],
+  })),
   priceRange: '$$',
   address: {
     '@type': 'PostalAddress',
@@ -48,7 +59,7 @@ const jsonLd = {
   geo: { '@type': 'GeoCoordinates', latitude: NAP.geo.lat, longitude: NAP.geo.lng },
   hasMap: NAP.googleMaps,
   openingHours: NAP.openingHours,
-  sameAs: [NAP.facebook],
+  sameAs: [settings.facebook],
   description:
     'Manufacturer and supplier of cabinet door panels, kitchen cabinets (incl. stainless steel), home furniture, fittings, appliances and accessories in Kajang, Selangor.',
 };
@@ -103,9 +114,13 @@ const jsonLd = {
     <slot name="head" />
   </head>
   <body>
+    {announce && (
+      <div style="background:#6e8a17;color:#fff;text-align:center;padding:8px 16px;font-size:.9rem;font-weight:500">{announce}</div>
+    )}
     <Header lang={lang} slug={slug} />
     <slot />
     <Footer lang={lang} slug={slug} />
     <WhatsAppFloat lang={lang} />
+    <ContactChooser lang={lang} />
   </body>
 </html>
