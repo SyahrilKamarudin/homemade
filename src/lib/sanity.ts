@@ -4,11 +4,13 @@
 import { createClient, type SanityClient } from '@sanity/client';
 import imageUrlBuilder from '@sanity/image-url';
 
-const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID as string | undefined;
+// HOMADE SELANGOR Sanity project. The project id is public (not a secret), so it
+// is committed here as the default; an env var can still override it per build.
+const projectId = (import.meta.env.PUBLIC_SANITY_PROJECT_ID as string | undefined) ?? 'wdldkf7t';
 const dataset = (import.meta.env.PUBLIC_SANITY_DATASET as string | undefined) ?? 'production';
 const apiVersion = (import.meta.env.PUBLIC_SANITY_API_VERSION as string | undefined) ?? '2024-01-01';
 
-/** True once the client has plugged in their Sanity project id (via env). */
+/** True when a Sanity project id is configured (always true now it ships a default). */
 export const sanityEnabled = Boolean(projectId);
 
 export const sanityClient: SanityClient | null = sanityEnabled
