@@ -11,11 +11,15 @@ if (!/^[a-z0-9_-]+$/i.test(dataset)) {
   process.exit(1);
 }
 const files = ['content', 'products', 'seo', 'posts'];
-const npx = process.platform === 'win32' ? 'npx.cmd' : 'npx';
 
 for (const f of files) {
   console.log(`\n→ Importing ${f}.ndjson …`);
-  // execFileSync with an argument array — no shell, no injection surface.
-  execFileSync(npx, ['sanity', 'dataset', 'import', `./seed/${f}.ndjson`, dataset, '--replace'], { stdio: 'inherit' });
+  // shell:true so `npx` resolves on Windows (npx.cmd can't be spawned directly,
+  // it throws EINVAL). Inputs are a validated dataset name + hardcoded filenames,
+  // so there is no injection surface.
+  execFileSync('npx', ['sanity', 'dataset', 'import', `./seed/${f}.ndjson`, dataset, '--replace'], {
+    stdio: 'inherit',
+    shell: true,
+  });
 }
 console.log('\n✅ Seed import complete. Open the Studio to review and edit.');
