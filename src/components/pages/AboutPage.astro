@@ -2,12 +2,12 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CtaBand from '../CtaBand.astro';
 import type { Lang } from '../../config';
-import { t } from '../../i18n/strings';
+import { getContent } from '../../lib/content';
 import { SEO, localizedPath } from '../../i18n/routes';
 
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
-const d = t(lang);
+const d = await getContent(lang);
 const seo = SEO['about'][lang];
 
 const facts = [

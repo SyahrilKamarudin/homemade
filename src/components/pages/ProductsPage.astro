@@ -3,13 +3,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import CtaBand from '../CtaBand.astro';
 import ProductCard from '../ProductCard.astro';
 import type { Lang } from '../../config';
-import { t } from '../../i18n/strings';
+import { getContent } from '../../lib/content';
 import { SEO, localizedPath } from '../../i18n/routes';
 import { getCatalog } from '../../lib/catalog';
 
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
-const d = t(lang);
+const d = await getContent(lang);
 const seo = SEO['products'][lang];
 const categories = await getCatalog(lang);
 
