@@ -2,22 +2,20 @@
 import type { Lang } from '../config';
 import { waLink } from '../config';
 import { t } from '../i18n/strings';
-import type { Card } from '../data/products';
+import type { CatalogCard } from '../lib/catalog';
 
-interface Props { lang: Lang; card: Card; }
+interface Props { lang: Lang; card: CatalogCard; }
 const { lang, card } = Astro.props;
 const d = t(lang);
-const title = d[card.titleKey];
-const desc = d[card.descKey];
 ---
 <article class="card">
   <div class="card__media">
-    <img src={`/assets/img/${card.img}`} alt={card.alt} loading="lazy" width="400" height="300" />
+    <img src={card.img} alt={card.alt} loading="lazy" width="400" height="300" />
   </div>
   <div class="card__body">
     {card.badge && <span class="tag">{card.badge}</span>}
-    <h3>{title}</h3>
-    <p class="card__desc">{desc}</p>
-    <a class="link-arrow" href={waLink(lang, title)} target="_blank" rel="noopener" data-contact data-contact-note={title}>{d.enquire}</a>
+    <h3>{card.title}</h3>
+    <p class="card__desc">{card.desc}</p>
+    <a class="link-arrow" href={waLink(lang, card.title)} target="_blank" rel="noopener" data-contact data-contact-note={card.title}>{d.enquire}</a>
   </div>
 </article>

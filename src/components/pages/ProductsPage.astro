@@ -5,12 +5,13 @@ import ProductCard from '../ProductCard.astro';
 import type { Lang } from '../../config';
 import { t } from '../../i18n/strings';
 import { SEO, localizedPath } from '../../i18n/routes';
-import { categories } from '../../data/products';
+import { getCatalog } from '../../lib/catalog';
 
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const d = t(lang);
 const seo = SEO['products'][lang];
+const categories = await getCatalog(lang);
 
 const chips = [
   { anchor: 'cabinet-doors', label: d.catCabinet },
@@ -52,9 +53,9 @@ const chips = [
       <section id={cat.id} class={cat.tint ? 'section section--tint' : 'section'} style="scroll-margin-top:90px">
         <div class="container">
           <div style="margin-bottom:34px;max-width:760px">
-            <span class="tag">{d[cat.tagKey]}</span>
-            <h2 style="margin-bottom:6px">{d[cat.titleKey]}</h2>
-            <p class="lead" style="margin:0">{d[cat.leadKey]}</p>
+            <span class="tag">{cat.tag}</span>
+            <h2 style="margin-bottom:6px">{cat.title}</h2>
+            <p class="lead" style="margin:0">{cat.lead}</p>
           </div>
           <div class="grid grid--cards-lg">
             {cat.cards.map((card) => <ProductCard lang={lang} card={card} />)}
